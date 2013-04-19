@@ -21,3 +21,39 @@ Tests
 Tests should clean up after themselves, but authors hold no warranty over corrupted data - use fresh testing database.
 
 To run tests load cl-neo4j.tests system and run (cl-neo4j.tests:run-all-tests).
+
+debian setup
+----------------
+
+$ sudo apt-get update
+ ...
+ E: Release file for http://ftp.spline.de/pub/aptosid/debian/dists/sid/InRelease is expired (invalid since 31d 4h 22min 24s). Updates for this repository will not be applied.
+$ sudo apt-get -o Acquire::Check-Valid-Until=false update
+$ sudo apt-get install cl-quicklisp sbcl-doc sbcl-source slime cl-swank clisp clisp-* gdb
+$ sbcl --load /usr/share/cl-quicklisp/quicklisp.lisp
+ * (quicklisp-quickstart:install)
+$ sbcl --load /usr/share/cl-quicklisp/quicklisp.lisp
+ * (quicklisp-quickstart:install)
+  ...
+   Quicklisp has already been installed. Load #P"/home/mjp/quicklisp/setup.lisp" instead.
+  ...
+ * (load "/home/mjp/quicklisp/setup.lisp")
+ * (ql:add-to-init-file)
+ * (ql:quickload "cl-neo4j")
+ * (ql:quickload "cl-neo4j.tests")
+ * (cl-neo4j.tests:run-all-tests)
+  XXXXXXXXXX
+   Did 10 checks.
+      Pass: 0 ( 0%)
+      Skip: 0 ( 0%)
+      Fail: 10 (100%)
+   Failure Details:
+   --------------------------------
+   TRAVERSAL-AND-PATHS []: 
+        Unexpected Error: #<USOCKET:CONNECTION-REFUSED-ERROR {1006F2C453}>
+  Condition USOCKET:CONNECTION-REFUSED-ERROR was signalled...
+  ..
+
+heroku neo4j
+----------------
+
